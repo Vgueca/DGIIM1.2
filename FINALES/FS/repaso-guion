@@ -1,0 +1,37 @@
+#!/bin/bash
+#Titulo: 	Repaso Prácticas 1-5
+#Fecha: 	
+#Autor: 	Juan Valentín Guerrero Cano
+#Versión: 	1.0
+#Descripción: 	Ejercicio 7 de repaso
+#Uso:	Ejercicio 7 de repaso
+
+if [ "$#" -ne 3]; then
+	echo "ERROR:Introduzca tres argumentos, el primero un directorio, el segundo una letra y el tercero una palabra";
+exit 1
+fi
+
+
+if ! [-d $1]; then
+	echo "El directorio no existe, lo crearemos a continuación";
+	mkdir $1;
+fi
+
+
+
+if[ "$2" == "f"]; then
+	echo "El segundo argumento es una f";
+elif[ "$2" == "d"]; then
+	echo "El segundo argumento es una d";
+else
+	echo "ERROR: El segundo argumento no es ni una d ni una f";
+	exit 1
+fi
+
+(grep -r -n "$3" $1) > `pwd`/resultado.txt
+
+if [ "$2" == "f"]; then
+	find $1 -type f >> `pwd`/resultado.txt ;
+else [ "$2" == "d"]; then
+	find $1 -type d >> `pwd`/resultado.txt;
+fi

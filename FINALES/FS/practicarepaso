@@ -1,0 +1,64 @@
+1.- mkdir -p repaso/prueba1/ejercicio1 repaso/prueba2
+
+
+2.- touch arch1.txt arch2.txt arch3.txt arch4.pdf arch5.pdf
+
+
+3.- help let|grep "expresiones">arch1.txt
+
+
+4.- cp  repaso/prueba1/ejercicio1/*.*x* repaso/prueba2
+
+
+5.- man find|head -15 >> repaso/prueba2/arch1.txt
+
+
+6.- let w="2+3+4+5/2" && echo $w
+    echo 2+3+4+5/2|bc -l
+
+7.- touch repaso
+
+#!/bin/bash
+#Titulo: 	Repaso Prácticas 1-4
+#Fecha: 	
+#Autor: 	Juan Valentín Guerrero Cano
+#Versión: 	1.0
+#Descripción: 	Ejercicio7 de repaso
+#Uso:	Ejercicio 7 de repaso
+
+
+if [ "$#" -ne 2]; then
+	echo "Introduzca dos argumentos, el primero un directorio y el segundo un archivo";
+exit 1
+fi
+
+if[[ -f $2 ]]; then
+	head -3 $2 > salida
+	echo "salida tiene las tres primeras lineas del archivo pasado como 		argumento";
+else
+	echo "Ha habido un error, $2 no es un archivo";
+	exit 1
+fi
+if [[ -d $1 ]]; then
+	archivos= 'ls $1 | wc -w';
+	echo "El argumento $1 contiene $archivos archivos";
+else
+	mkdir $1
+fi
+
+archivos = 'find $1 -perm -u+r';
+find $1 -perm -u+r >> salida;
+
+lectura = 'find $1 -perm -u=r | wc -l';
+totalarchivos='ls -LR $1 | wc-l';
+
+echo "De un total de $totalarchivos , hay $lectura archivos con permiso de lectura";
+
+
+
+
+
+
+
+
+

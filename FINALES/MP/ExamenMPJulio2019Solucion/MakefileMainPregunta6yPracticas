@@ -1,0 +1,33 @@
+BIN=bin
+SRC=.
+INCLUDE=.
+OBJ=obj
+LIB=lib
+
+
+all: $(BIN)/pregunta6Teoria $(BIN)/text2PGM $(LIB)/libimagen.a $(LIB)/libcomentarios.a
+
+$(BIN)/pregunta6Teoria: $(OBJ)/Pregunta6Teoria.o $(LIB)/libimagen.a  
+	g++ -o $(BIN)/pregunta6Teoria $(OBJ)/Pregunta6Teoria.o -limagen -L$(LIB)
+	
+$(BIN)/text2PGM: $(OBJ)/Text2PGM.o $(LIB)/libimagen.a  
+	g++ -o $(BIN)/text2PGM $(OBJ)/Text2PGM.o -limagen -L$(LIB)
+    
+$(OBJ)/Pregunta6Teoria.o: $(SRC)/Pregunta6Teoria.cpp $(INCLUDE)/Imagen.h $(INCLUDE)/Comentarios.h
+	g++ -c $(SRC)/Pregunta6Teoria.cpp -o $(OBJ)/Pregunta6Teoria.o -I$(INCLUDE)
+
+$(OBJ)/Text2PGM.o: $(SRC)/Text2PGM.cpp $(INCLUDE)/Imagen.h $(INCLUDE)/Comentarios.h
+	g++ -c $(SRC)/Text2PGM.cpp -o $(OBJ)/Text2PGM.o -I$(INCLUDE)
+	
+$(OBJ)/Comentarios.o: $(SRC)/Comentarios.cpp $(INCLUDE)/Comentarios.h
+	g++ -c $(SRC)/Comentarios.cpp -o $(OBJ)/Comentarios.o -I$(INCLUDE)
+	
+$(OBJ)/Imagen.o: $(SRC)/Imagen.cpp $(INCLUDE)/Imagen.h $(INCLUDE)/Comentarios.h
+	g++ -c $(SRC)/Imagen.cpp -o $(OBJ)/Imagen.o -I$(INCLUDE)
+
+$(LIB)/libimagen.a : $(OBJ)/Comentarios.o $(OBJ)/Imagen.o
+	ar -rvs $(LIB)/libimagen.a $(OBJ)/Comentarios.o $(OBJ)/Imagen.o
+
+$(LIB)/libcomentarios.a : $(OBJ)/Comentarios.o
+	ar -rvs $(LIB)/libcomentarios.a $(OBJ)/Comentarios.o
+

@@ -1,0 +1,78 @@
+Se dispone de un listado del tipo y cantidad de componentes disponibles en un almacén de una tienda. La información se encuentra en un fichero de texto que contiene en cada línea el nombre del componente (como una cadena sin espacios), su código identificativo (un entero único para cada componente), el número de unidades disponibles en el almacen y finalmente el precio unitario de cada componente. Un ejemplo de este fichero de almacén sería:
+
+Diodo_Led             3    17  0.43 
+Transistor_NPN        1    14  0.21 
+Resistencia_220_Ohm   2    55  0.05
+Resistencia_10K       4    69  0.05 
+
+
+A título de ejemplo, la primera línea del fichero indica que el componente Diodo_led tiene un código identificativo 3, hay 17 unidades y el coste de cada componente es 0.43 Eur.
+
+Cada componente (cada línea del fichero) puede acomodarse en una estructura del tipo
+struct componente{
+   char nombre[TAM]; // Nombre del componente
+   int ID; // Identificador del componente
+   int numComponentes; // Nro de componentes disponibles en almacen
+   float precioUd; // Precio unitario del componente
+};
+
+
+Los componentes se emplean para fabricar equipos. Cada equipo requiere de una lista de componentes concreta que se expresa como una estructura
+struct equipo{
+   char nombre[TAM]; // Nombre del equipo
+   int numComponentes; // Nro de componentes que forman el equipo
+   int listaIDComponentes[TAM]; // Lista de IDs de componentes
+};
+
+
+Por ejemplo, una estructura 
+e
+q
+u
+i
+p
+o
+ definida como
+
+struct equipo eq={"Sensor1",7,{3,3,1,1,1,4,4}};
+
+indicaría que el equipo "Sensor1" necesita 2 Diodo_led (aparece el 3, el ID del diodo, dos veces en la lista), 3 transistores_NPN y 2 Resistencias de 10K. La longitud del vector es 7, el nro total de componentes. 
+
+Se desea diseñar un programa que permita gestionar las existencias del almacén. Para ello se pide que desarrolle las siguientes funciones.
+
+Desarrolle la función 
+l
+e
+e
+A
+l
+m
+a
+c
+e
+n
+ que lea el fichero de texto de componentes de almacén y lo almacene en un vector de estructuras tipo 
+c
+o
+m
+p
+o
+n
+e
+n
+t
+e
+. El número de líneas (componentes) del fichero es desconocido, aunque se sabe que no hay más de TAM componentes, donde TAM es una etiqueta definida en el código de ejemplo.
+
+La función recibe el nombre del fichero como una cadena de caracteres y debe devolver, por el procedimiento que estime oportuno, el vector de estructuras 
+c
+o
+m
+p
+o
+n
+e
+n
+t
+e
+ y la longitud de dicho vector.
